@@ -43,6 +43,7 @@ export default {
       return path
     },
     showLogo() {
+      console.log(`aaa:${this.$store.state.settings.sidebarLogo}`)
       return this.$store.state.settings.sidebarLogo
     },
     variables() {
