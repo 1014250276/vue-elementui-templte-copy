@@ -43,34 +43,46 @@ export const constantRoutes = [
     hidden: true
   },
 
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   children: [{
+  //     path: 'dashboard',
+  //     name: 'Dashboard',
+  //     component: () => import('@/views/dashboard/index'),
+  //     meta: { title: 'Dashboard', icon: 'dashboard' }
+  //   }]
+  // },
+
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      path: 'home',
+      name: 'Home',
+      component: () => import('@/views/home/index'),
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
-  {
-    path: '/home',
-    component: Layout,
-    redirect: '/home/console',
-    name: 'Home',
-    meta: { title: '主页', icon: 'dashboard' },
-    children: [{
-      path: 'console',
-      name: 'Console',
-      component: () => import('@/views/home/console/index'),
-      meta: { title: '控制台', icon: 'dashboard' }
-    }]
-  },
+  // {
+  //   path: '/home',
+  //   component: Layout,
+  //   redirect: '/home',
+  //   name: 'Home',
+  //   meta: { title: '主页', icon: 'dashboard' },
+  //   children: [{
+  //     path: 'console',
+  //     name: 'Console',
+  //     component: () => import('@/views/home/console/index'),
+  //     meta: { title: '控制台', icon: 'dashboard' }
+  //   }]
+  // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 /**
@@ -79,182 +91,320 @@ export const constantRoutes = [
  * 拥有权限用户可见
  */
 export const asyncRoutes = [
-  //权限管理
+  /**
+   * 权限管理
+   * **/
   {
     path: '/systemmanage',
     component: Layout,
-    redirect: '/systemmanage/systemuser',
+    redirect: '/systemmanage/user',
     name: 'Systemmanage',
-    meta: { title: '权限管理', icon: 'example' },
+    meta: { title: '权限管理', icon: 'example' ,roles: ['admin', 'editor']},
     children: [
       {
-        path: 'systemuser',
-        name: 'Systemuser',
-        component: () => import('@/views/systemmanage/systemuser/index'),
-        meta: { title: '用户管理' }
+        path: 'user',
+        name: 'user',
+        component: () => import('@/views/systemmanage/user/index'),
+        meta: { title: '用户管理' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'systembranch',
-        name: 'Systembranch',
-        component: () => import('@/views/systemmanage/systembranch/index'),
-        meta: { title: '部门管理' }
+        path: 'branch',
+        name: 'branch',
+        component: () => import('@/views/systemmanage/branch/index'),
+        meta: { title: '部门管理' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'systempermission',
-        name: 'Systempermission',
-        component: () => import('@/views/systemmanage/systempermission/index'),
-        meta: { title: '权限管理' }
+        path: 'permission',
+        name: 'permission',
+        component: () => import('@/views/systemmanage/permission/index'),
+        meta: { title: '权限管理' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'systemrole',
-        name: 'Systemrole',
-        component: () => import('@/views/systemmanage/systemrole/index'),
-        meta: { title: '角色管理' }
+        path: 'role',
+        name: 'role',
+        component: () => import('@/views/systemmanage/role/index'),
+        meta: { title: '角色管理' ,roles: ['admin', 'editor']}
       }
     ]
   },
 
-  // 配置管理
+  /** 
+   * 配置管理
+   * **/
   {
     path: '/configmanage',
     component: Layout,
-    redirect: '/configmanage/configsystem',
+    redirect: '/configmanage/system',
     name: 'Configmanage',
-    meta: { title: '配置管理', icon: 'el-icon-s-help' },
+    meta: { title: '配置管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
     children: [
       {
-        path: 'configsystem',
-        name: 'Configsystem',
-        component: () => import('@/views/configmanage/configsystem/index'),
-        meta: { title: '系统设置' }
+        path: 'system',
+        name: 'system',
+        component: () => import('@/views/configmanage/system/index'),
+        meta: { title: '系统设置'  ,roles: ['admin', 'editor']}
       },
       {
-        path: 'configpay',
-        name: 'Configpay',
-        component: () => import('@/views/configmanage/configpay/index'),
-        meta: { title: '支付平台列表' }
+        path: 'pay',
+        name: 'pay',
+        component: () => import('@/views/configmanage/pay/index'),
+        meta: { title: '支付平台列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'configservice',
-        name: 'Configservice',
-        component: () => import('@/views/configmanage/configservice/index'),
-        meta: { title: '短信服务商列表' }
+        path: 'service',
+        name: 'service',
+        component: () => import('@/views/configmanage/service/index'),
+        meta: { title: '短信服务商列表' ,roles: ['admin', 'editor']}
       }
     ]
   },
 
-  //营销管理
+  /**
+   * 营销管理
+   * **/
   {
     path: '/marketingmanage',
     component: Layout,
-    redirect: '/marketingmanage/marketingput',
+    redirect: '/marketingmanage/put',
     name: 'Marketingmanage',
-    meta: { title: '营销管理', icon: 'el-icon-s-help' },
+    meta: { title: '营销管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
     children: [
       {
-        path: 'marketingput',
-        name: 'Marketingput',
-        component: () => import('@/views/marketingmanage/marketingput/index'),
-        meta: { title: '落地页列表' }
+        path: 'put',
+        name: 'put',
+        component: () => import('@/views/marketingmanage/put/index'),
+        meta: { title: '落地页列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'marketingsource',
-        name: 'Marketingsource',
-        component: () => import('@/views/marketingmanage/marketingsource/index'),
-        meta: { title: '来源平台列表' }
+        path: 'source',
+        name: 'source',
+        component: () => import('@/views/marketingmanage/source/index'),
+        meta: { title: '来源平台列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'marketingqrcode',
-        name: 'Marketingqrcode',
-        component: () => import('@/views/marketingmanage/marketingqrcode/index'),
-        meta: { title: '客服推广二维码列表' }
+        path: 'qrcode',
+        name: 'qrcode',
+        component: () => import('@/views/marketingmanage/qrcode/index'),
+        meta: { title: '客服推广二维码列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'marketingmake',
-        name: 'Marketingmake',
-        component: () => import('@/views/marketingmanage/marketingmake/index'),
-        meta: { title: '落地页制作' }
+        path: 'make',
+        name: 'make',
+        component: () => import('@/views/marketingmanage/make/index'),
+        meta: { title: '落地页制作' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'marketingaccount',
-        name: 'Marketingaccount',
-        component: () => import('@/views/marketingmanage/marketingaccount/index'),
-        meta: { title: '账户列表' }
+        path: 'account',
+        name: 'account',
+        component: () => import('@/views/marketingmanage/account/index'),
+        meta: { title: '账户列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'marketingrequest',
-        name: 'Marketingrequest',
-        component: () => import('@/views/marketingmanage/marketingrequest/index'),
-        meta: { title: '广告访问详情' }
+        path: 'request',
+        name: 'request',
+        component: () => import('@/views/marketingmanage/request/index'),
+        meta: { title: '广告访问详情' ,roles: ['admin', 'editor']}
       }
     ]
   },
 
-  //贷款管理
+  /**
+   * 贷款管理
+   * **/
   {
     path: '/paycodemanage',
     component: Layout,
-    redirect: '/paycodemanage/paycodepaylist',
+    redirect: '/paycodemanage/paylist',
     name: 'Paycodemanage',
-    meta: { title: '贷款管理', icon: 'el-icon-s-help' },
+    meta: { title: '贷款管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
     children: [
       {
-        path: 'paycodepaylist',
-        name: 'Paycodepaylist',
-        component: () => import('@/views/paycodemanage/paycodepaylist/index'),
-        meta: { title: '平台列表' }
+        path: 'paylist',
+        name: 'paylist',
+        component: () => import('@/views/paycodemanage/paylist/index'),
+        meta: { title: '平台列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'paycodepayorder',
-        name: 'Paycodepayorder',
-        component: () => import('@/views/paycodemanage/paycodepayorder/index'),
-        meta: { title: '订单记录' }
+        path: 'payorder',
+        name: 'payorder',
+        component: () => import('@/views/paycodemanage/payorder/index'),
+        meta: { title: '订单记录' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'paycodecreatecode',
-        name: 'Paycodecreatecode',
-        component: () => import('@/views/paycodemanage/paycodecreatecode/index'),
-        meta: { title: '生成贷款二维码' }
+        path: 'createcode',
+        name: 'createcode',
+        component: () => import('@/views/paycodemanage/createcode/index'),
+        meta: { title: '生成贷款二维码' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'paycodegetlink',
-        name: 'Paycodegetlink',
-        component: () => import('@/views/paycodemanage/paycodegetlink/index'),
-        meta: { title: '生成贷款链接' }
+        path: 'getlink',
+        name: 'getlink',
+        component: () => import('@/views/paycodemanage/getlink/index'),
+        meta: { title: '生成贷款链接' ,roles: ['admin', 'editor']}
       }
     ]
   },
 
-  //课程管理
+  /**
+   * 课程管理
+   * **/
   {
     path: '/curriculummanage',
     component: Layout,
-    redirect: '/curriculummanage/curriculumcourseType',
+    redirect: '/curriculummanage/courseType',
     name: 'Configmanage',
-    meta: { title: '课程管理', icon: 'el-icon-s-help' },
+    meta: { title: '课程管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
     children: [
       {
-        path: 'curriculumcourseType',
-        name: 'CurriculumcourseType',
-        component: () => import('@/views/curriculummanage/curriculumcourseType/index'),
-        meta: { title: '课程类型列表' }
+        path: 'courseType',
+        name: 'courseType',
+        component: () => import('@/views/curriculummanage/courseType/index'),
+        meta: { title: '课程类型列表' ,roles: ['admin', 'editor']}
       },
       {
-        path: 'curriculumcourse',
-        name: 'Curriculumcourse',
-        component: () => import('@/views/curriculummanage/curriculumcourse/index'),
-        meta: { title: '课程列表' }
+        path: 'course',
+        name: 'course',
+        component: () => import('@/views/curriculummanage/course/index'),
+        meta: { title: '课程列表' ,roles: ['admin', 'editor']}
       }
     ]
   },
 
-  //订单管理
+  /**
+   * 订单管理
+   * **/
+   {
+    path: '/ordermanage',
+    component: Layout,
+    redirect: '/ordermanage/list',
+    name: 'Ordermanage',
+    meta: { title: '订单管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/ordermanage/list/index'),
+        meta: { title: '订单列表' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'aloot',
+        name: 'aloot',
+        component: () => import('@/views/ordermanage/aloot/index'),
+        meta: { title: '订单分配记录' ,roles: ['admin', 'editor']}
+      }
+    ]
+  },
 
-  //日志管理
+  /**
+   * 日志管理
+   * **/
+   {
+    path: '/logmanage',
+    component: Layout,
+    redirect: '/logmanage/system',
+    name: 'Logmanage',
+    meta: { title: '日志管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
+    children: [
+      {
+        path: 'system',
+        name: 'system',
+        component: () => import('@/views/logmanage/system/index'),
+        meta: { title: '系统操作日志' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'sms',
+        name: 'sms',
+        component: () => import('@/views/logmanage/sms/index'),
+        meta: { title: '短信发送记录' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'notify',
+        name: 'notify',
+        component: () => import('@/views/logmanage/notify/index'),
+        meta: { title: '支付回调记录' ,roles: ['admin', 'editor']}
+      }
+    ]
+  },
 
-  //资产管理
+  /**
+   * 资产管理
+   * **/
+   {
+    path: '/propertymanage',
+    component: Layout,
+    redirect: '/propertymanage/list',
+    name: 'Propertymanage',
+    meta: { title: '资产管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
+    children: [
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/propertymanage/list/index'),
+        meta: { title: '资产列表' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'check',
+        name: 'check',
+        component: () => import('@/views/propertymanage/check/index'),
+        meta: { title: '资产盘点' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'record',
+        name: 'record',
+        component: () => import('@/views/propertymanage/record/index'),
+        meta: { title: '资产记录' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'setting',
+        name: 'setting',
+        component: () => import('@/views/propertymanage/setting/index'),
+        meta: { title: '资产设置' ,roles: ['admin', 'editor']}
+      }
+    ]
+  },
 
-  //渠道与退款管理
+  /**
+   * 渠道与退款管理
+   * **/
+   {
+    path: '/channelmanage',
+    component: Layout,
+    redirect: '/channelmanage/count',
+    name: 'Channelmanage',
+    meta: { title: '渠道与退款管理', icon: 'el-icon-s-help' ,roles: ['admin', 'editor']},
+    children: [
+      {
+        path: 'count',
+        name: 'count',
+        component: () => import('@/views/channelmanage/count/index'),
+        meta: { title: '渠道统计列表' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'ditchlist',
+        name: 'ditchlist',
+        component: () => import('@/views/channelmanage/ditchlist/index'),
+        meta: { title: '渠道列表' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'refund',
+        name: 'refund',
+        component: () => import('@/views/channelmanage/refund/index'),
+        meta: { title: '渠道退款信息统计' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'docking',
+        name: 'docking',
+        component: () => import('@/views/channelmanage/docking/index'),
+        meta: { title: '信息对接统计' ,roles: ['admin', 'editor']}
+      },
+      {
+        path: 'relevancy',
+        name: 'relevancy',
+        component: () => import('@/views/channelmanage/relevancy/index'),
+        meta: { title: '渠道关联记录' ,roles: ['admin', 'editor']}
+      }
+    ]
+  },
 
 
 ]
@@ -263,12 +413,12 @@ export const asyncRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // mode默认为hash模式
   scrollBehavior: () => ({ y: 0 }),
-  // routes: constantRoutes
-  routes: [...constantRoutes,...asyncRoutes]//展示用这种方式拼接，调用接口时此处需更改
+  routes: constantRoutes
 })
 
 const router = createRouter()
 
+//重置路由
 //详细见链接: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
   const newRouter = createRouter()

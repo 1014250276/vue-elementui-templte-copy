@@ -8,15 +8,17 @@ function resolve(dir) {
 
 const name = defaultSettings.title || 'vue Admin Template' // page title
 
-//端口号 
+/**
+ * 端口号 
+ * **/
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
 module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',//开发环境 true
-  // lintOnSave: false,
+  // lintOnSave: process.env.NODE_ENV === 'development',//开发环境 true
+  lintOnSave: false,//直接关闭eslint验证
   productionSourceMap: false,
   devServer: {
     port: port,

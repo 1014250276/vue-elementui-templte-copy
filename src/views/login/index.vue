@@ -60,14 +60,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位'))
       } else {
         callback()
       }
@@ -83,15 +83,28 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      otherQuery: {}
     }
   },
   watch: {
     $route: {
       handler: function(route) {
-        this.redirect = route.query && route.query.redirect
+        // this.redirect = route.query && route.query.redirect
+        const query = route.query
+        if(query){
+          this.redirect = query.redirect;
+          this.otherQuery = this.getOtherQuery(query);
+        }
       },
       immediate: true
+    }
+  },
+   mounted() {
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.password.focus()
     }
   },
   methods: {
@@ -110,7 +123,8 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+            // debugger
+              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -120,6 +134,14 @@ export default {
           return false
         }
       })
+    },
+     getOtherQuery(query) {
+      return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+          acc[cur] = query[cur]
+        }
+        return acc
+      }, {})
     }
   }
 }
