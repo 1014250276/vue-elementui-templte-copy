@@ -39,7 +39,6 @@ export default {
       //获取当前路由
       const route = this.$route
       const { meta, path } = route
-       console.log(`meta.activeMenu:${path}`)
       // 如果设置路径，侧边栏将突出显示您设置的路径
       if (meta.activeMenu) {
         return meta.activeMenu
